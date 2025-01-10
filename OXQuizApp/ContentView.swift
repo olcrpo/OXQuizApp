@@ -36,15 +36,27 @@ struct ContentView: View {
             Spacer()
             HStack {
                 Spacer()
+                Text("\(countCorrect)")
+                    .font(.system(size: 50))
+                    .foregroundColor(.green)
+                Spacer()
+                Text("\(countWrong)")
+                    .font(.system(size: 50))
+                    .foregroundColor(.red)
+                Spacer()
+                
+            }
+            Spacer()
+            
+            HStack {
+                Spacer()
                 Button {
                     selectCorrect()
                     
                 } label: {
                     Image(systemName: "checkmark.square.fill")
-                    Text("맞음")
-                    
                 }
-                .font(.largeTitle)
+                .font(.system(size: 100))
                 .foregroundColor(.green)
              
                 Spacer()
@@ -53,36 +65,21 @@ struct ContentView: View {
                     
                 } label: {
                     Image(systemName: "xmark.app.fill")
-                    Text("틀림")
-                    
                 }
-                .font(.largeTitle)
+                .font(.system(size: 100))
                 .foregroundColor(.red)
                 
                 Spacer()
                 
             }
             Spacer()
-            HStack {
-                Spacer()
-                Text("\(countCorrect)개 맟춤")
-                    .font(.largeTitle)
-                Spacer()
-                Text("\(countWrong)개 틀림")
-                    .font(.largeTitle)
-                
-                Spacer()
-                
-            }
-            Spacer()
             
-            Button(action: {
+            Button {
                 reloadGame()
-            }) {
-                Text("재시작")
-                    .font(.largeTitle)
+            } label: {
+                Image(systemName: "repeat.circle.fill")
             }
-            
+            .font(.largeTitle)
             
         }
         .padding()
@@ -102,9 +99,14 @@ struct ContentView: View {
             isAnswerCorrect = false
             countWrong += 1
         }
-        generateNewQuiz()
+        
+        // 애니메이션 초기화
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // 0.5초 후 초기화
+            isAnswerCorrect = nil
+            generateNewQuiz()
+        }
     }
-    
+
     func selectWrong() {
         if !isOperationCorrect {
             isAnswerCorrect = true
@@ -113,8 +115,14 @@ struct ContentView: View {
             isAnswerCorrect = false
             countWrong += 1
         }
-        generateNewQuiz()
+        
+        // 애니메이션 초기화
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // 0.5초 후 초기화
+            isAnswerCorrect = nil
+            generateNewQuiz()
+        }
     }
+
     
     func generateNewQuiz() {
         number1 = Int.random(in: 1...10)
