@@ -24,6 +24,7 @@ struct ContentView: View {
         VStack {
             Text("다음 수식은 맞을까요?")
                 .font(.largeTitle)
+                .padding(.top, 20)
             Spacer()
             Text("\(number1) \(operation) \(number2) = \(resultNumber)")
                 .font(.largeTitle)
@@ -37,15 +38,17 @@ struct ContentView: View {
             HStack {
                 Spacer()
                 Text("\(countCorrect)")
-                    .font(.system(size: 50))
                     .foregroundColor(.green)
+
                 Spacer()
                 Text("\(countWrong)")
-                    .font(.system(size: 50))
                     .foregroundColor(.red)
+
+                    
                 Spacer()
                 
             }
+            .font(.system(size: 50))
             Spacer()
             
             HStack {
@@ -56,8 +59,9 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: "checkmark.square.fill")
                 }
-                .font(.system(size: 100))
                 .foregroundColor(.green)
+
+                
              
                 Spacer()
                 Button {
@@ -66,12 +70,12 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: "xmark.app.fill")
                 }
-                .font(.system(size: 100))
                 .foregroundColor(.red)
+
                 
                 Spacer()
-                
             }
+            .font(.system(size: 100))
             Spacer()
             
             Button {
@@ -82,7 +86,7 @@ struct ContentView: View {
             .font(.largeTitle)
             
         }
-        .padding()
+        .padding(.bottom)
     }
     
     func reloadGame() {
@@ -100,8 +104,7 @@ struct ContentView: View {
             countWrong += 1
         }
         
-        // 애니메이션 초기화
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // 0.5초 후 초기화
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             isAnswerCorrect = nil
             generateNewQuiz()
         }
@@ -116,8 +119,7 @@ struct ContentView: View {
             countWrong += 1
         }
         
-        // 애니메이션 초기화
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // 0.5초 후 초기화
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             isAnswerCorrect = nil
             generateNewQuiz()
         }
